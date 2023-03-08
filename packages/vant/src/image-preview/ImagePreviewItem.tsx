@@ -314,6 +314,25 @@ export default defineComponent({
         loading: () => <Loading type="spinner" />,
       };
 
+      const videoPreview = (props:any) => {
+        // bak 
+        console.log("vant fork render...");
+        const fileName = props.src;
+        const flieArr = fileName.split('.');
+        let suffix = flieArr[flieArr.length - 1];
+        if(suffix != ''){
+          suffix = suffix.toLocaleLowerCase();
+          const videolist = ['mp4', 'm2v', 'mkv','webm','ogg','mov'];
+          const result = videolist.find(item => item === suffix)
+          console.log(4444444444,suffix,result)
+          if (result) {
+            return true;
+          }
+          return false;
+        }
+        // bak 
+      }
+
       return (
         <SwipeItem
           ref={swipeItem}
@@ -327,6 +346,7 @@ export default defineComponent({
               {slots.image({ src: props.src })}
             </div>
           ) : (
+            videoPreview({ src: props.src }) ? <video src={props.src}></video> : 
             <Image
               v-slots={imageSlots}
               src={props.src}
